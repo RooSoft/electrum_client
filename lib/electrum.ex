@@ -28,21 +28,13 @@ defmodule Electrum do
   end
 
   def handle_call({:list_unspent, script_hash}, _from, %{socket: socket} = state) do
-    data = %{
-      jsonrpc: "2.0",
-      id: 1,
-      method: "blockchain.scripthash.listunspent",
-      params: [script_hash]
-    }
+    params = ListUnspent.encode_params(script_hash)
 
-    encoded = Jason.encode!(data)
-    serialized = "#{encoded}\n"
-
-    :ok = :gen_tcp.send(socket, serialized)
+    :ok = :gen_tcp.send(socket, params)
 
     result =
       receive do
-        {:tcp, _socket, message} -> ListUnspent.parse(message)
+        {:tcp, _socket, message} -> ListUnspent.parse_result(message)
       end
 
     {:reply, result, state}
