@@ -1,11 +1,8 @@
 # Electrum
 
-**TODO: Add description**
+Elixir simplifying calls to an Electrum RPC Server
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `electrum` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +12,16 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/electrum>.
+## Example usage
 
+Works both on `mainnet` or `testnet`, depends on the electrum server's configuration.
+
+Example calling a `testnet` server at `192.168.1.10` on port `60001` to get a list of
+UTXO from the `67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858` script hash.
+
+```elixir
+Electrum.start_link("192.168.1.10", 60001)
+Electrum.list_unspent("67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858")
+```
+
+```elixir
