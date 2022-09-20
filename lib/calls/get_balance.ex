@@ -6,6 +6,19 @@ defmodule Electrum.Calls.GetBalance do
   """
 
   @doc """
+  Calls the electrum server with the required parameters and returns a the script hash's balance
+  """
+  def call(socket, script_hash) do
+    params = encode_params(script_hash)
+
+    :ok = :gen_tcp.send(socket, params)
+
+    receive do
+      {:tcp, _socket, message} -> parse_result(message)
+    end
+  end
+
+  @doc """
   Converts a script hash into blockchain.scripthash.get_balance params
 
   ## Examples

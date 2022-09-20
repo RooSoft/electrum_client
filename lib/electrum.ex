@@ -34,14 +34,7 @@ defmodule Electrum do
   end
 
   def handle_call({:get_balance, script_hash}, _from, %{socket: socket} = state) do
-    params = GetBalance.encode_params(script_hash)
-
-    :ok = :gen_tcp.send(socket, params)
-
-    result =
-      receive do
-        {:tcp, _socket, message} -> GetBalance.parse_result(message)
-      end
+    result = GetBalance.call(socket, script_hash)
 
     {:reply, result, state}
   end
