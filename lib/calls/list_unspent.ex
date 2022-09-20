@@ -1,6 +1,6 @@
 defmodule Electrum.Calls.ListUnspent do
   @moduledoc """
-  Manages output from blockchain.scripthash.listunspent calls
+  Manages blockchain.scripthash.listunspent params and results
 
   ref: https://electrumx-spesmilo.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-listunspent
   """

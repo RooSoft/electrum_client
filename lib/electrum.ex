@@ -1,7 +1,7 @@
 defmodule Electrum do
   use GenServer
 
-  alias Electrum.Calls.ListUnspent
+  alias Electrum.Calls.{GetBalance, ListUnspent}
 
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
@@ -41,38 +41,15 @@ defmodule Electrum do
   end
 
   def handle_call({:get_balance, script_hash}, _from, %{socket: socket} = state) do
-    data = %{
-      jsonrpc: "2.0",
-      id: 1,
-      method: "blockchain.scripthash.get_balance",
-      params: [script_hash]
-    }
+    params = GetBalance.encode_params(script_hash)
 
-    encoded = Jason.encode!(data)
-    serialized = "#{encoded}\n"
-
-    :ok = :gen_tcp.send(socket, serialized)
+    :ok = :gen_tcp.send(socket, params)
 
     result =
       receive do
-        {:tcp, _socket, message} -> parse_balance(message)
+        {:tcp, _socket, message} -> GetBalance.parse_result(message)
       end
 
     {:reply, result, state}
-  end
-
-  defp parse_balance(message) do
-    %{
-      "id" => _id,
-      "result" => %{
-        "confirmed" => confirmed,
-        "unconfirmed" => unconfirmed
-      }
-    } = Jason.decode!(message)
-
-    %{
-      confirmed: confirmed,
-      unconfirmed: unconfirmed
-    }
   end
 end
