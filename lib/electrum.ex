@@ -1,7 +1,7 @@
 defmodule Electrum do
   use GenServer
 
-  alias Electrum.Calls.{GetBalance, ListUnspent}
+  alias Electrum.Calls.{GetBalance, ListUnspent, GetTransaction}
 
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
@@ -27,6 +27,10 @@ defmodule Electrum do
     GenServer.call(__MODULE__, {:list_unspent, script_hash})
   end
 
+  def get_transaction(transaction_id) do
+    GenServer.call(__MODULE__, {:get_transaction, transaction_id})
+  end
+
   def handle_call({:list_unspent, script_hash}, _from, %{socket: socket} = state) do
     result = ListUnspent.call(socket, script_hash)
 
@@ -35,6 +39,12 @@ defmodule Electrum do
 
   def handle_call({:get_balance, script_hash}, _from, %{socket: socket} = state) do
     result = GetBalance.call(socket, script_hash)
+
+    {:reply, result, state}
+  end
+
+  def handle_call({:get_transaction, transaction_id}, _from, %{socket: socket} = state) do
+    result = GetTransaction.call(socket, transaction_id)
 
     {:reply, result, state}
   end
