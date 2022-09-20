@@ -1,6 +1,8 @@
 defmodule Electrum do
   use GenServer
 
+  alias Electrum.Calls.ListUnspent
+
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
       name: __MODULE__
@@ -40,7 +42,7 @@ defmodule Electrum do
 
     result =
       receive do
-        {:tcp, _socket, message} -> parse_list_unspent(message)
+        {:tcp, _socket, message} -> ListUnspent.parse(message)
       end
 
     {:reply, result, state}
@@ -79,32 +81,6 @@ defmodule Electrum do
     %{
       confirmed: confirmed,
       unconfirmed: unconfirmed
-    }
-  end
-
-  defp parse_list_unspent(message) do
-    %{"result" => utxo_list} = Jason.decode!(message)
-
-    utxo_list
-    |> convert_utxo_list
-  end
-
-  defp convert_utxo_list(utxo_list) do
-    utxo_list
-    |> Enum.map(&convert_utxo/1)
-  end
-
-  defp convert_utxo(%{
-         "height" => height,
-         "tx_hash" => transaction_id,
-         "tx_pos" => vxid,
-         "value" => value
-       }) do
-    %{
-      height: height,
-      transaction_id: transaction_id,
-      vxid: vxid,
-      value: value
     }
   end
 end
