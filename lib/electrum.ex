@@ -28,14 +28,7 @@ defmodule Electrum do
   end
 
   def handle_call({:list_unspent, script_hash}, _from, %{socket: socket} = state) do
-    params = ListUnspent.encode_params(script_hash)
-
-    :ok = :gen_tcp.send(socket, params)
-
-    result =
-      receive do
-        {:tcp, _socket, message} -> ListUnspent.parse_result(message)
-      end
+    result = ListUnspent.call(socket, script_hash)
 
     {:reply, result, state}
   end

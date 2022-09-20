@@ -37,7 +37,7 @@ defmodule Electrum.Calls.GetBalance do
     ...>  |> Electrum.Calls.GetBalance.parse_result()
     %{confirmed: 4000, unconfirmed: 0}
   """
-  @spec parse_result(list()) :: list()
+  @spec parse_result(list()) :: %{confirmed: integer(), unconfirmed: integer()}
   def parse_result(message) do
     %{"result" => balance} = Jason.decode!(message)
 

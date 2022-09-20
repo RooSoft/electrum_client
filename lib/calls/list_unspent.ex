@@ -6,6 +6,21 @@ defmodule Electrum.Calls.ListUnspent do
   """
 
   @doc """
+  Calls the electrum server with the required parameters and returns a list of
+  UTXO in the form of an elixir list
+  """
+  @spec call(any(), binary()) :: list()
+  def call(socket, script_hash) do
+    params = encode_params(script_hash)
+
+    :ok = :gen_tcp.send(socket, params)
+
+    receive do
+      {:tcp, _socket, message} -> parse_result(message)
+    end
+  end
+
+  @doc """
   Converts a script hash into blockchain.scripthash.listunspent params
 
   ## Examples
