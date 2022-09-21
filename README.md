@@ -34,3 +34,15 @@ server is at `192.168.1.10`, answering to port `60001`:
 ```elixir
 Electrum.start_link("192.168.1.10", 60001)
 ```
+
+## Display a bitcoin address balance
+
+Send an address to `get_balance` and get a number of confirmed and unconfirmed sats.
+
+```elixir
+Electrum.get_balance("mrEpoDtBXKwrudWUhRqnz3j1yuj7kKHw5p")
+```
+
+```elixir
+%{confirmed: 1318882, unconfirmed: 0}
+```
