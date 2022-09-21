@@ -24,4 +24,13 @@ Electrum.start_link("192.168.1.10", 60001)
 Electrum.list_unspent("67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858")
 ```
 
+## Local configuration
+
+It is possible ton configure your own electrum server automatically when iex starts.
+
+Create a `.iex.local.exs` file containing the follwing contents, assuming your electrum
+server is at `192.168.1.10`, answering to port `60001`:
+
 ```elixir
+Electrum.start_link("192.168.1.10", 60001)
+```
