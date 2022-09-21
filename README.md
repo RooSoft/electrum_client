@@ -1,6 +1,6 @@
 # Electrum
 
-Elixir simplifying calls to an Electrum RPC Server
+Elixir library simplifying calls to an Electrum RPC Server
 
 ## Installation
 
