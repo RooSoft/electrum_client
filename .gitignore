@@ -27,4 +27,4 @@ electrum-*.tar
 
 
 .DS_Store
-.iex.exs.local
+.iex.local.exs
