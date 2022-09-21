@@ -28,3 +28,4 @@ electrum-*.tar
 
 .DS_Store
 .iex.local.exs
+/local
