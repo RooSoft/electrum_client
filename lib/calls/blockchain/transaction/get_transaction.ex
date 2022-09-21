@@ -1,4 +1,4 @@
-defmodule Electrum.Calls.GetTransaction do
+defmodule Electrum.Calls.Transaction.GetTransaction do
   @moduledoc """
   Manages blockchain.transaction.get params and results
 
@@ -27,7 +27,7 @@ defmodule Electrum.Calls.GetTransaction do
 
   ## Examples
     iex> "05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373"
-    ...> |> Electrum.Calls.GetTransaction.encode_params()
+    ...> |> Electrum.Calls.Transaction.GetTransaction.encode_params()
     \"""
     {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.transaction.get\",\"params\":[\"05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373\"]}
     \"""
@@ -51,7 +51,7 @@ defmodule Electrum.Calls.GetTransaction do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":\"0100000001107628107a1c2e6c6f76f068c60d467f5384e9ff1de91ba65dda21782d550c42000000006a4730440220571a1484112982604f16f2d1a49c862e2093cedfaf3042af42d7b587c220fbff022055435f538623f09572b87770cf93d7183d1bcb7503895682672f8f98134b320e012102f942091e070d59e2f86e17b77e4f96539752f19f360dbf87ef15ea1f0fe8a4e2ffffffff02a00f0000000000001976a91409d6cbc4a478c8f1cbde9085b10fb84519591afb88ac88130000000000001976a914e8046c97f9c1c38ff6c15e4d7696385309d5438888ac00000000\"}
     ...>  \"""
-    ...>  |> Electrum.Calls.GetTransaction.parse_result()
+    ...>  |> Electrum.Calls.Transaction.GetTransaction.parse_result()
     %BitcoinLib.Transaction{
       version: 1,
       inputs: [

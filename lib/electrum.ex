@@ -2,7 +2,7 @@ defmodule Electrum do
   use GenServer
 
   alias Electrum.Calls.Blockchain.ScriptHash.{GetBalance, ListUnspent}
-  alias Electrum.Calls.{GetTransaction}
+  alias Electrum.Calls.Blockchain.Transaction.{GetTransaction}
 
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
