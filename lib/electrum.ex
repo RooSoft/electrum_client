@@ -19,8 +19,8 @@ defmodule Electrum do
     {:ok, state}
   end
 
-  def get_balance(script_hash) do
-    GenServer.call(__MODULE__, {:get_balance, script_hash})
+  def get_balance(address) do
+    GenServer.call(__MODULE__, {:get_balance, address})
   end
 
   def list_unspent(script_hash) do
@@ -37,8 +37,8 @@ defmodule Electrum do
     {:reply, result, state}
   end
 
-  def handle_call({:get_balance, script_hash}, _from, %{socket: socket} = state) do
-    result = GetBalance.call(socket, script_hash)
+  def handle_call({:get_balance, address}, _from, %{socket: socket} = state) do
+    result = GetBalance.call(socket, address)
 
     {:reply, result, state}
   end
