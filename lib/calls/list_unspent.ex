@@ -5,13 +5,18 @@ defmodule Electrum.Calls.ListUnspent do
   ref: https://electrumx-spesmilo.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-listunspent
   """
 
+  alias Electrum.Address
+
   @doc """
   Calls the electrum server with the required parameters and returns a list of
   UTXO in the form of an elixir list
   """
   @spec call(any(), binary()) :: list()
-  def call(socket, script_hash) do
-    params = encode_params(script_hash)
+  def call(socket, address) do
+    params =
+      address
+      |> Address.to_script_hash()
+      |> encode_params()
 
     :ok = :gen_tcp.send(socket, params)
 
