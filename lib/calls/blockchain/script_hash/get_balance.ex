@@ -1,4 +1,4 @@
-defmodule Electrum.Calls.GetBalance do
+defmodule Electrum.Calls.Blockchain.ScriptHash.GetBalance do
   @moduledoc """
   Manages blockchain.scripthash.get_balance params and results
 
@@ -28,7 +28,7 @@ defmodule Electrum.Calls.GetBalance do
 
   ## Examples
     iex> "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
-    ...> |> Electrum.Calls.GetBalance.encode_params()
+    ...> |> Electrum.Calls.Blockchain.ScriptHash.GetBalance.encode_params()
     \"""
     {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.scripthash.get_balance\",\"params\":[\"67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858\"]}
     \"""
@@ -52,7 +52,7 @@ defmodule Electrum.Calls.GetBalance do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":{\"confirmed\":4000,\"unconfirmed\":0}}
     ...>  \"""
-    ...>  |> Electrum.Calls.GetBalance.parse_result()
+    ...>  |> Electrum.Calls.Blockchain.ScriptHash.GetBalance.parse_result()
     %{confirmed: 4000, unconfirmed: 0}
   """
   @spec parse_result(list()) :: %{confirmed: integer(), unconfirmed: integer()}
