@@ -35,7 +35,7 @@ server is at `192.168.1.10`, answering to port `60001`:
 Electrum.start_link("192.168.1.10", 60001)
 ```
 
-## Display a bitcoin address balance
+## Get a bitcoin address balance
 
 Send an address to `get_balance` and get a number of confirmed and unconfirmed sats.
 
@@ -45,4 +45,24 @@ Electrum.get_balance("mrEpoDtBXKwrudWUhRqnz3j1yuj7kKHw5p")
 
 ```elixir
 %{confirmed: 1318882, unconfirmed: 0}
+```
+
+## List a bitcoin address UTXOs
+
+To get a list of unspent transaction outputs related to an address, send the address
+to `list_unspent`
+
+```elixir
+Electrum.get_balance("mrEpoDtBXKwrudWUhRqnz3j1yuj7kKHw5p")
+```
+
+```elixir
+[
+  %{
+    height: 2347375,
+    transaction_id: "dde058767aa566f2aba736320796771922efa6cb6e75f1cba3d47e4bfd5ae0d8",
+    value: 1318882,
+    vxid: 1
+  }
+]
 ```
