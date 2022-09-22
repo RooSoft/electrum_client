@@ -4,7 +4,8 @@ defmodule Electrum.Address do
   """
 
   alias BitcoinLib.Crypto
-  alias BitcoinLib.Key.PublicKeyHash
+  alias BitcoinLib.Key.{PublicKeyHash}
+  alias Electrum.Address
 
   @doc """
   Converts an address to a script hash, which is required in almost every Electrum call
@@ -41,9 +42,14 @@ defmodule Electrum.Address do
   defp hash_script(script) do
     script
     |> Crypto.sha256()
+    |> reverse_bitstring
+    |> Binary.to_hex()
+  end
+
+  defp reverse_bitstring(bitstring) do
+    bitstring
     |> :binary.bin_to_list()
     |> Enum.reverse()
     |> :binary.list_to_bin()
-    |> Binary.to_hex()
   end
 end
