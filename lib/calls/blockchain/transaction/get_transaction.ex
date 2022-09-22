@@ -54,6 +54,7 @@ defmodule Electrum.Calls.Blockchain.Transaction.GetTransaction do
     ...>  |> Electrum.Calls.Blockchain.Transaction.GetTransaction.parse_result()
     %BitcoinLib.Transaction{
       version: 1,
+      id: "05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373",
       inputs: [
         %BitcoinLib.Transaction.Input{
           txid: "420c552d7821da5da61be91dffe984537f460dc668f0766f6c2e1c7a10287610",
