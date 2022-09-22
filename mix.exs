@@ -23,7 +23,7 @@ defmodule Electrum.MixProject do
     [
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:jason, "~> 1.4"},
-      {:bitcoinlib, path: "~/work/github/roosoft/bitcoinlib"}
+      {:bitcoinlib, "~> 0.2.0"}
     ]
   end
 end
