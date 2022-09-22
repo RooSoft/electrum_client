@@ -25,8 +25,8 @@ defmodule Electrum do
     GenServer.call(__MODULE__, {:get_balance, address})
   end
 
-  def get_history(address) do
-    GenServer.call(__MODULE__, {:get_history, address})
+  def get_address_history(address) do
+    GenServer.call(__MODULE__, {:get_address_history, address})
   end
 
   def list_unspent(address) do
@@ -60,7 +60,7 @@ defmodule Electrum do
   end
 
   @impl true
-  def handle_call({:get_history, address}, _from, %{socket: socket} = state) do
+  def handle_call({:get_address_history, address}, _from, %{socket: socket} = state) do
     result = GetHistory.call(socket, address)
 
     {:reply, result, state}

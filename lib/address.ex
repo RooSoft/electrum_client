@@ -5,7 +5,6 @@ defmodule Electrum.Address do
 
   alias BitcoinLib.Crypto
   alias BitcoinLib.Key.{PublicKeyHash}
-  alias Electrum.Address
 
   @doc """
   Converts an address to a script hash, which is required in almost every Electrum call
