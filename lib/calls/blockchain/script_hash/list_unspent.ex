@@ -1,11 +1,11 @@
-defmodule Electrum.Calls.Blockchain.ScriptHash.ListUnspent do
+defmodule ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent do
   @moduledoc """
   Manages blockchain.scripthash.listunspent params and results
 
   ref: https://electrumx-spesmilo.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-listunspent
   """
 
-  alias Electrum.Address
+  alias ElectrumClient.Address
 
   @doc """
   Calls the electrum server with the required parameters and returns a list of
@@ -30,7 +30,7 @@ defmodule Electrum.Calls.Blockchain.ScriptHash.ListUnspent do
 
   ## Examples
     iex> "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
-    ...> |> Electrum.Calls.Blockchain.ScriptHash.ListUnspent.encode_params()
+    ...> |> ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent.encode_params()
     \"""
     {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.scripthash.listunspent\",\"params\":[\"67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858\"]}
     \"""
@@ -54,7 +54,7 @@ defmodule Electrum.Calls.Blockchain.ScriptHash.ListUnspent do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":[{\"height\":2346430,\"tx_hash\":\"05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373\",\"tx_pos\":0,\"value\":4000}]}
     ...>  \"""
-    ...>  |> Electrum.Calls.Blockchain.ScriptHash.ListUnspent.parse_result()
+    ...>  |> ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent.parse_result()
     [
       %{
         height: 2346430,

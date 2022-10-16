@@ -1,5 +1,5 @@
-defmodule Electrum.AddressTest do
+defmodule ElectrumClient.AddressTest do
   use ExUnit.Case
 
-  doctest Electrum.Address
+  doctest ElectrumClient.Address
 end

@@ -1,5 +1,5 @@
-defmodule Electrum.Calls.Blockchain.ScriptHash.GetHistoryTest do
+defmodule ElectrumClient.Calls.Blockchain.ScriptHash.GetHistoryTest do
   use ExUnit.Case, async: true
 
-  doctest Electrum.Calls.Blockchain.ScriptHash.GetHistory
+  doctest ElectrumClient.Calls.Blockchain.ScriptHash.GetHistory
 end

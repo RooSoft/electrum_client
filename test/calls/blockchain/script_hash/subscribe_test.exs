@@ -1,5 +1,5 @@
-defmodule Electrum.Calls.Blockchain.ScriptHash.SubscribeTest do
+defmodule ElectrumClient.Calls.Blockchain.ScriptHash.SubscribeTest do
   use ExUnit.Case, async: true
 
-  doctest Electrum.Calls.Blockchain.ScriptHash.Subscribe
+  doctest ElectrumClient.Calls.Blockchain.ScriptHash.Subscribe
 end

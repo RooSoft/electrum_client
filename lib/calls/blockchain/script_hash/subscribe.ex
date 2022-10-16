@@ -1,11 +1,11 @@
-defmodule Electrum.Calls.Blockchain.ScriptHash.Subscribe do
+defmodule ElectrumClient.Calls.Blockchain.ScriptHash.Subscribe do
   @moduledoc """
   Manages blockchain.scripthash.subscribe params and results
 
   ref: https://electrumx-spesmilo.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-subscribe
   """
 
-  alias Electrum.Address
+  alias ElectrumClient.Address
 
   @doc """
   Calls the electrum server with the required parameters to start a subscription to an address's events
@@ -28,7 +28,7 @@ defmodule Electrum.Calls.Blockchain.ScriptHash.Subscribe do
 
   ## Examples
     iex> "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
-    ...> |> Electrum.Calls.Blockchain.ScriptHash.Subscribe.encode_params()
+    ...> |> ElectrumClient.Calls.Blockchain.ScriptHash.Subscribe.encode_params()
     \"""
     {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.scripthash.subscribe\",\"params\":[\"67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858\"]}
     \"""
@@ -52,7 +52,7 @@ defmodule Electrum.Calls.Blockchain.ScriptHash.Subscribe do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":\"3d638df1f781871c98b2f334f1d0af592f88d972d3e7742100dd644592436b5f\"}
     ...>  \"""
-    ...>  |> Electrum.Calls.Blockchain.ScriptHash.Subscribe.parse_result()
+    ...>  |> ElectrumClient.Calls.Blockchain.ScriptHash.Subscribe.parse_result()
     "3d638df1f781871c98b2f334f1d0af592f88d972d3e7742100dd644592436b5f"
   """
   @spec parse_result(list()) :: %{confirmed: integer(), unconfirmed: integer()}

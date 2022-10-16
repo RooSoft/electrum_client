@@ -1,4 +1,4 @@
-defmodule Electrum.Address do
+defmodule ElectrumClient.Address do
   @moduledoc """
   Address manipulation utilities
   """
@@ -11,7 +11,7 @@ defmodule Electrum.Address do
 
   ## Examples
     iex> "mgQyh4nYjr47S1W4Wy1PgFCrN38GfVyZdp"
-    ...> |> Electrum.Address.to_script_hash
+    ...> |> ElectrumClient.Address.to_script_hash
     "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
   """
   def to_script_hash(address) do
