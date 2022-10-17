@@ -23,7 +23,7 @@ defmodule ElectrumClient.MixProject do
     [
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:jason, "~> 1.4"},
-      {:bitcoinlib, "~> 0.2.0"}
+      {:bitcoinlib, "~> 0.2.2"}
     ]
   end
 end
