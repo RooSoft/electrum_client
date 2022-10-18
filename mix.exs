@@ -1,20 +1,34 @@
 defmodule ElectrumClient.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :electrum_client,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: docs(),
+      package: package()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
-  def application do
+  defp docs do
     [
-      extra_applications: [:logger]
+      # The main page in the docs
+      main: "ElectrumClient",
+      source_ref: @version,
+      source_url: "https://github.com/RooSoft/electrum_client"
+    ]
+  end
+
+  def package do
+    [
+      maintainers: ["Marc Lacoursière"],
+      licenses: ["UNLICENCE"],
+      links: %{"GitHub" => "https://github.com/RooSoft/electrum_client"}
     ]
   end
 
