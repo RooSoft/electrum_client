@@ -7,6 +7,7 @@ defmodule ElectrumClient.MixProject do
     [
       app: :electrum_client,
       version: @version,
+      description: "Elixir library simplifying calls to an Electrum RPC Server",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
