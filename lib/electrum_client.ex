@@ -47,6 +47,10 @@ defmodule ElectrumClient do
     GenServer.call(__MODULE__, {:get_transaction, transaction_id})
   end
 
+  def get_transaction_output(transaction_id, vout) do
+    GenServer.call(__MODULE__, {:get_transaction_output, transaction_id, vout})
+  end
+
   def broadcast_transaction(transaction) do
     GenServer.call(__MODULE__, {:broadcast_transaction, transaction})
   end
@@ -77,6 +81,20 @@ defmodule ElectrumClient do
     result = GetTransaction.call(socket, transaction_id)
 
     {:reply, result, state}
+  end
+
+  @impl true
+  def handle_call(
+        {:get_transaction_output, transaction_id, vout},
+        _from,
+        %{socket: socket} = state
+      ) do
+    output =
+      GetTransaction.call(socket, transaction_id)
+      |> Map.get(:outputs)
+      |> Enum.at(vout)
+
+    {:reply, output, state}
   end
 
   @impl true
