@@ -4,7 +4,7 @@ defmodule ElectrumClient.Address do
   """
 
   alias BitcoinLib.Crypto
-  alias BitcoinLib.Key.{PublicKeyHash}
+  alias BitcoinLib.Key.Address
 
   @doc """
   Converts an address to a script hash, which is required in almost every Electrum call
@@ -22,9 +22,7 @@ defmodule ElectrumClient.Address do
   end
 
   defp address_to_public_key_hash(address) do
-    {:ok, public_key_hash, _format} =
-      address
-      |> PublicKeyHash.from_address()
+    {:ok, public_key_hash, _format} = Address.destructure(address)
 
     public_key_hash
   end
