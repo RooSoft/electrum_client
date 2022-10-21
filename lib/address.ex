@@ -22,7 +22,7 @@ defmodule ElectrumClient.Address do
   end
 
   defp address_to_public_key_hash(address) do
-    {:ok, public_key_hash, _format} = Address.destructure(address)
+    {:ok, public_key_hash, _format, _network} = Address.destructure(address)
 
     public_key_hash
   end
