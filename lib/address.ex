@@ -24,6 +24,9 @@ defmodule ElectrumClient.Address do
       {:ok, script_hash, :p2sh, _network} ->
         p2sh_to_script_hash(script_hash)
 
+      {:ok, script_hash, :p2wpkh, _network} ->
+        p2wpkh_to_script_hash(script_hash)
+
       _ ->
         raise "Unknown address type"
     end
@@ -41,10 +44,25 @@ defmodule ElectrumClient.Address do
     |> hash_script
   end
 
+  defp p2wpkh_to_script_hash(script_hash) do
+    script_hash
+    |> public_witness_script_hash_to_script
+    |> hash_script
+  end
+
   defp public_script_hash_to_script(script_hash) do
     {_, script} =
       script_hash
       |> BitcoinLib.Script.Types.P2sh.create()
+      |> BitcoinLib.Script.encode()
+
+    script
+  end
+
+  defp public_witness_script_hash_to_script(script_hash) do
+    {_, script} =
+      script_hash
+      |> BitcoinLib.Script.Types.P2wpkh.create()
       |> BitcoinLib.Script.encode()
 
     script
