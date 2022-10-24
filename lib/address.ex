@@ -15,9 +15,7 @@ defmodule ElectrumClient.Address do
     "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
   """
   def to_script_hash(address) do
-    IO.inspect(address)
-
-    case Address.destructure(address) |> IO.inspect() do
+    case Address.destructure(address) do
       {:ok, public_key_hash, :p2pkh, _network} ->
         p2pkh_to_script_hash(public_key_hash)
 
