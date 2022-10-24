@@ -39,7 +39,7 @@ defmodule ElectrumClient.MixProject do
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:jason, "~> 1.4"},
-      {:bitcoinlib, "~> 0.2.7"}
+      {:bitcoinlib, "~> 0.2.8"}
     ]
   end
 end
