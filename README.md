@@ -7,7 +7,7 @@ Elixir library simplifying calls to an Electrum RPC Server
 ```elixir
 def deps do
   [
-    {:electrum_client, "~> 0.1.4"}
+    {:electrum_client, "~> 0.1.5"}
   ]
 end
 ```
