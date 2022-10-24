@@ -15,16 +15,37 @@ defmodule ElectrumClient.Address do
     "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
   """
   def to_script_hash(address) do
-    address
-    |> address_to_public_key_hash
+    case Address.destructure(address) do
+      {:ok, public_key_hash, :p2pkh, _network} ->
+        p2pkh_to_script_hash(public_key_hash)
+
+      {:ok, script_hash, :p2sh, _network} ->
+        p2sh_to_script_hash(script_hash)
+
+      _ ->
+        raise "Unknown address type"
+    end
+  end
+
+  defp p2pkh_to_script_hash(public_key_hash) do
+    public_key_hash
     |> public_key_hash_to_script
     |> hash_script
   end
 
-  defp address_to_public_key_hash(address) do
-    {:ok, public_key_hash, _format, _network} = Address.destructure(address)
+  defp p2sh_to_script_hash(script_hash) do
+    script_hash
+    |> public_script_hash_to_script
+    |> hash_script
+  end
 
-    public_key_hash
+  defp public_script_hash_to_script(script_hash) do
+    {_, script} =
+      script_hash
+      |> BitcoinLib.Script.Types.P2sh.create()
+      |> BitcoinLib.Script.encode()
+
+    script
   end
 
   defp public_key_hash_to_script(public_key_hash) do
