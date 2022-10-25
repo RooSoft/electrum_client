@@ -1,7 +1,7 @@
 defmodule ElectrumClient.MixProject do
   use Mix.Project
 
-  @version "0.1.10"
+  @version "0.1.11"
 
   def project do
     [
