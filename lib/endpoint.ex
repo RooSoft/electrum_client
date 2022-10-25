@@ -17,7 +17,7 @@ defmodule ElectrumClient.Endpoint do
 
     buffer = buffer <> message
 
-    case String.ends_with?(message, "\n") || byte_size(message) < 1460 do
+    case String.ends_with?(message, "\n") do
       true -> try_parse_result(buffer)
       false -> receive_response(socket, buffer)
     end
