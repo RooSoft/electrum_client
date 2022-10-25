@@ -11,10 +11,10 @@ defmodule ElectrumClient.Calls.Blockchain.ScriptHash.GetHistory do
   Converts a script hash into blockchain.scripthash.get_history params
 
   ## Examples
-      iex> "67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858"
+      iex> "tb1qqu0x5hfjktz5azefaaa0937w0692ln0dvanfu8"
       ...> |> ElectrumClient.Calls.Blockchain.ScriptHash.GetHistory.encode_params()
       \"""
-      {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.scripthash.get_history\",\"params\":[\"67a5662abf889b5a28ffa821c1f85fd3ef9313756b881351d91a3671f3f52858\"]}
+      {\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"blockchain.scripthash.get_history\",\"params\":[\"295634380c67a76e8138f3e61c616b8d0d5ca2362b2ede17de0080d879bd21c8\\"]}
       \"""
   """
   def encode_params(address) do
