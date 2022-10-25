@@ -1,6 +1,8 @@
 defmodule ElectrumClient do
   use GenServer
 
+  alias ElectrumClient.Endpoint
+
   alias ElectrumClient.Calls.Blockchain.ScriptHash.{
     GetBalance,
     GetHistory,
@@ -8,7 +10,10 @@ defmodule ElectrumClient do
     Subscribe
   }
 
-  alias ElectrumClient.Calls.Blockchain.Transaction.{GetTransaction, Broadcast}
+  alias ElectrumClient.Calls.Blockchain.Transaction.{
+    GetTransaction,
+    Broadcast
+  }
 
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
@@ -18,7 +23,16 @@ defmodule ElectrumClient do
 
   @impl true
   def init(%{electrum_ip: electrum_ip, electrum_port: electrum_port} = state) do
-    {:ok, socket} = :gen_tcp.connect(to_charlist(electrum_ip), electrum_port, [:binary])
+    {:ok, socket} =
+      :gen_tcp.connect(to_charlist(electrum_ip), electrum_port,
+        mode: :binary,
+        packet: 0,
+        keepalive: true,
+        active: false,
+        reuseaddr: true,
+        send_timeout: 5000,
+        send_timeout_close: true
+      )
 
     state =
       state
@@ -77,8 +91,15 @@ defmodule ElectrumClient do
   end
 
   @impl true
-  def handle_call({:get_transaction, transaction_id}, _from, %{socket: socket} = state) do
-    result = GetTransaction.call(socket, transaction_id)
+  def handle_call(
+        {:get_transaction, transaction_id},
+        _from,
+        %{socket: socket} = state
+      ) do
+    result =
+      GetTransaction.encode_params(transaction_id)
+      |> Endpoint.request(socket)
+      |> GetTransaction.translate()
 
     {:reply, result, state}
   end
@@ -90,7 +111,10 @@ defmodule ElectrumClient do
         %{socket: socket} = state
       ) do
     output =
-      GetTransaction.call(socket, transaction_id)
+      GetTransaction.encode_params(transaction_id)
+      |> Endpoint.request(socket)
+      |> GetTransaction.translate()
+      |> Map.get(:transaction)
       |> Map.get(:outputs)
       |> Enum.at(vout)
 
@@ -115,6 +139,8 @@ defmodule ElectrumClient do
 
   @impl true
   def handle_info({:tcp, _port, message}, state) do
+    # IO.puts(message)
+
     %{
       "jsonrpc" => "2.0",
       "method" => "blockchain.scripthash.subscribe",

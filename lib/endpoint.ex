@@ -1,5 +1,5 @@
 defmodule ElectrumClient.Endpoint do
-  def request(socket, params) do
+  def request(params, socket) do
     :ok = :gen_tcp.send(socket, params)
 
     socket
