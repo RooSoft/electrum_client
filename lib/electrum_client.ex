@@ -85,7 +85,10 @@ defmodule ElectrumClient do
 
   @impl true
   def handle_call({:get_address_history, address}, _from, %{socket: socket} = state) do
-    result = GetHistory.call(socket, address)
+    result =
+      GetHistory.encode_params(address)
+      |> Endpoint.request(socket)
+      |> GetHistory.translate()
 
     {:reply, result, state}
   end
@@ -139,8 +142,6 @@ defmodule ElectrumClient do
 
   @impl true
   def handle_info({:tcp, _port, message}, state) do
-    # IO.puts(message)
-
     %{
       "jsonrpc" => "2.0",
       "method" => "blockchain.scripthash.subscribe",
