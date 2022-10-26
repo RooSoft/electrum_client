@@ -3,8 +3,7 @@ defmodule ElectrumClient.Address do
   Address manipulation utilities
   """
 
-  alias BitcoinLib.Crypto
-  alias BitcoinLib.Key.Address
+  alias BitcoinLib.{Address, Crypto}
 
   @doc """
   Converts an address to a script hash, which is required in almost every Electrum call
