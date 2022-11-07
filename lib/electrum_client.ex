@@ -15,6 +15,8 @@ defmodule ElectrumClient do
     Broadcast
   }
 
+  @callback get_transaction(txid :: String.t()) :: map()
+
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
       name: __MODULE__
