@@ -128,20 +128,29 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.GetTransaction do
            <<0x304402204060217580c8326a2c1ccaa1c5a9b3dfa2142ea141ab19e5bbb453679d93b696022041c9dd084afdff5de4717252ac22ab342efd2546ace76c83071f30ac1031209701::568>>]
         }
       }
+
+    *NOTE*: For PSBT `time` will be set to `nil`.
   """
-  def translate(%{
-        "blockhash" => block_hash,
-        "blocktime" => block_time,
-        "confirmations" => confirmations,
-        "hex" => hex,
-        "vsize" => vsize
-      }) do
+  def translate(
+        %{
+          "hex" => hex,
+          "vsize" => vsize
+        } = transaction
+      ) do
     %{
-      block_hash: block_hash,
-      time: DateTime.from_unix!(block_time),
-      confirmations: confirmations,
+      block_hash: transaction["block_hash"],
+      time: parse_block_time(transaction["blocktime"]),
+      confirmations: transaction["confirmations"] || 0,
       vsize: vsize,
       transaction: Transaction.parse(hex) |> elem(1)
     }
+  end
+
+  defp parse_block_time(nil) do
+    nil
+  end
+
+  defp parse_block_time(ts) do
+    DateTime.from_unix!(ts)
   end
 end
