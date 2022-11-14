@@ -10,7 +10,7 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.GetTransactionTest do
                time: nil,
                transaction: %BitcoinLib.Transaction{
                  version: 2,
-                 id: "980a18154907ca3e6353b277d960ab07752574655d1fd28663446c2f341779c5",
+                 id: "97b6e12a670ea61cb5e397af1f7049f6b8b39318506bb9e4e2c5c3f2e0b1b035",
                  inputs: [
                    %BitcoinLib.Transaction.Input{
                      txid: "e445e3dd9828dd61b2b5ae144205d7038d8fb9ab1cb991f5a1bc6b387660ba81",
@@ -40,6 +40,7 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.GetTransactionTest do
                    }
                  ],
                  locktime: 762_634,
+                 segwit?: true,
                  witness: [
                    <<0x028DBAD32A4404EE120627AB7E46A3E3F12B4939BFD9AEBE78F81D0420CF64EFF3::264>>,
                    <<0x304402204770B9178D6596C4D4A5FE6993FB14166E0209689888D937C61EE3317FFBBAE5022022886DBF336ADF0D9FBB52EB11F0947216E13CA578909B047E3FDFE6C043365801::568>>
