@@ -47,7 +47,7 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.GetTransactionTest do
                  ]
                },
                vsize: 141
-             } == GetTransaction.translate(sample_psbt()) |> IO.inspect()
+             } == GetTransaction.translate(sample_psbt())
     end
   end
 

@@ -16,6 +16,7 @@ defmodule ElectrumClient do
   }
 
   @callback get_transaction(txid :: String.t()) :: map()
+  @callback get_address_history(address :: String.t()) :: list()
 
   def start_link(electrum_ip, electrum_port) do
     GenServer.start_link(__MODULE__, %{electrum_ip: electrum_ip, electrum_port: electrum_port},
