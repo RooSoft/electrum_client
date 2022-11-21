@@ -2,6 +2,21 @@
 
 Elixir library simplifying calls to an Electrum RPC Server
 
+## Donations
+
+This library is being built in the wild according to these principles
+
+- Free to use
+- Developer friendly
+- Modular
+
+Arguably, the most important part is that it is `unbiased`.
+
+If you want to keep it that way, and want to promote its active development, please send donations
+here: `bc1qcqg6flp09esqx6cl5h45epftyyc952j7au7h7w`
+
+Thank you!
+
 ## Installation
 
 ```elixir
