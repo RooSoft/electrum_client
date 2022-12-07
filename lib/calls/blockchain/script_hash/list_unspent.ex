@@ -21,7 +21,7 @@ defmodule ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent do
     :ok = :gen_tcp.send(socket, params)
 
     receive do
-      {:tcp, _socket, message} -> parse_result(message)
+      {:tcp, _socket, message} -> translate(message)
     end
   end
 
@@ -54,7 +54,7 @@ defmodule ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":[{\"height\":2346430,\"tx_hash\":\"05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373\",\"tx_pos\":0,\"value\":4000}]}
     ...>  \"""
-    ...>  |> ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent.parse_result()
+    ...>  |> ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent.translate()
     [
       %{
         height: 2346430,
@@ -64,11 +64,9 @@ defmodule ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent do
       }
     ]
   """
-  @spec parse_result(list()) :: list()
-  def parse_result(message) do
-    %{"result" => utxo_list} = Jason.decode!(message)
-
-    utxo_list
+  @spec translate(list()) :: list()
+  def translate(message) do
+    message
     |> convert_utxo_list
   end
 

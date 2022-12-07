@@ -1,7 +1,7 @@
 defmodule ElectrumClient do
   use GenServer
 
-  alias ElectrumClient.Endpoint
+  alias ElectrumClient.{Address, Endpoint}
 
   alias ElectrumClient.Calls.Blockchain.ScriptHash.{
     GetBalance,
@@ -74,7 +74,12 @@ defmodule ElectrumClient do
 
   @impl true
   def handle_call({:list_unspent, address}, _from, %{socket: socket} = state) do
-    result = ListUnspent.call(socket, address)
+    result =
+      address
+      |> Address.to_script_hash()
+      |> ListUnspent.encode_params()
+      |> Endpoint.request(socket)
+      |> ListUnspent.translate()
 
     {:reply, result, state}
   end
@@ -138,7 +143,7 @@ defmodule ElectrumClient do
   def handle_cast({:subscribe_address, address}, %{socket: socket} = state) do
     response = Subscribe.call(socket, address)
 
-    IO.inspect(response)
+    IO.inspect(response, label: "subscribe response")
 
     {:noreply, state}
   end
