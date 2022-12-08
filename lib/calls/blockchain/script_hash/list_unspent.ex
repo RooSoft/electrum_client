@@ -52,8 +52,10 @@ defmodule ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent do
 
   ## Examples
     iex>  \"""
-    ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":[{\"height\":2346430,\"tx_hash\":\"05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373\",\"tx_pos\":0,\"value\":4000}]}
+    ...>  [{\"height\":2346430,\"tx_hash\":\"05517750a78fb8c38346b1bf5908d71abe728811b643105be6595e11a9392373\",\"tx_pos\":0,\"value\":4000}]
     ...>  \"""
+    ...>  |> Jason.decode!()
+    ...>
     ...>  |> ElectrumClient.Calls.Blockchain.ScriptHash.ListUnspent.translate()
     [
       %{
