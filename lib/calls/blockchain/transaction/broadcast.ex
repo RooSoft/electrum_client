@@ -14,8 +14,17 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.Broadcast do
 
     :ok = :gen_tcp.send(socket, params)
 
+    IO.puts("BROADCASTED")
+
     receive do
-      {:tcp, _socket, message} -> parse_result(message)
+      {:tcp, _socket, message} ->
+        IO.puts("RECEIVING TCP")
+        translate(message)
+
+      anything ->
+        IO.puts("RECEIVING ANYTHING")
+        IO.inspect(anything)
+        {:error, "received somthing we didn't expect"}
     end
   end
 
@@ -49,16 +58,24 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.Broadcast do
     iex>  \"""
     ...>   {\"id\":1,\"jsonrpc\":\"2.0\",\"result\":\"ba9e74b6359c5ff49bb5a1dc0979ce85db8ee45aa90fbf170ff72dec0aad542f\"}
     ...>  \"""
-    ...>  |> ElectrumClient.Calls.Blockchain.Transaction.Broadcast.parse_result()
+    ...>  |> ElectrumClient.Calls.Blockchain.Transaction.Broadcast.translate()
     {
       :ok,
       "ba9e74b6359c5ff49bb5a1dc0979ce85db8ee45aa90fbf170ff72dec0aad542f"
     }
   """
-  @spec parse_result(list()) :: {:ok, binary()} | {:error, integer(), binary()}
-  def parse_result(message) do
-    Jason.decode!(message)
-    |> decode_message
+  @spec translate(list()) :: {:ok, binary()} | {:error, integer(), binary()}
+  def translate(message) do
+    IO.inspect(message, label: "BROADCAST: about to translate")
+
+    case byte_size(message) do
+      64 ->
+        {:ok, message}
+
+      _ ->
+        Jason.decode!(message)
+        |> decode_message
+    end
   end
 
   defp decode_message(%{"result" => transaction_id}) do

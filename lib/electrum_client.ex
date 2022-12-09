@@ -134,7 +134,10 @@ defmodule ElectrumClient do
 
   @impl true
   def handle_call({:broadcast_transaction, transaction}, _from, %{socket: socket} = state) do
-    result = Broadcast.call(socket, transaction)
+    result =
+      Broadcast.encode_params(transaction)
+      |> Endpoint.request(socket)
+      |> Broadcast.translate()
 
     {:reply, result, state}
   end
