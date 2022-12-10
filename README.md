@@ -22,7 +22,7 @@ Thank you!
 ```elixir
 def deps do
   [
-    {:electrum_client, "~> 0.1.25"}
+    {:electrum_client, "~> 0.1.26"}
   ]
 end
 ```

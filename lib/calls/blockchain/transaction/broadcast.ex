@@ -66,8 +66,6 @@ defmodule ElectrumClient.Calls.Blockchain.Transaction.Broadcast do
   """
   @spec translate(list()) :: {:ok, binary()} | {:error, integer(), binary()}
   def translate(message) do
-    IO.inspect(message, label: "BROADCAST: about to translate")
-
     case byte_size(message) do
       64 ->
         {:ok, message}
