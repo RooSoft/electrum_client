@@ -1,7 +1,7 @@
 defmodule ElectrumClient.MixProject do
   use Mix.Project
 
-  @version "0.1.27"
+  @version "0.1.28"
 
   def project do
     [
@@ -39,7 +39,7 @@ defmodule ElectrumClient.MixProject do
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:jason, "~> 1.4"},
-      {:bitcoinlib, "~> 0.4.4"}
+      {:bitcoinlib, "~> 0.4.5"}
     ]
   end
 end
